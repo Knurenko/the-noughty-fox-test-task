@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">The Noughty Fox Test App</string>
+
+    <string name="unexpected_error_while_fetching">Oops! Something gone wrong :c</string>
+    <string name="request_too_long_exception">The request was too long</string>
+    <string name="no_internet_connection">No internet connection! Check your settings</string>
+    <string name="try_again">Try again</string>
 </resources>

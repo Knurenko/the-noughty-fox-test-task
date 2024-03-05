@@ -6,7 +6,10 @@ import com.example.thenoughtyfoxtestapp.data.network.retrofit.RetrofitFactory
 import com.example.thenoughtyfoxtestapp.data.network.service.CommentService
 import com.example.thenoughtyfoxtestapp.data.repository.CommentRepositoryImpl
 import com.example.thenoughtyfoxtestapp.domain.repository.CommentRepository
+import com.example.thenoughtyfoxtestapp.presentation.screens.comments.MainScreenViewModel
+import com.example.thenoughtyfoxtestapp.presentation.screens.one_comment.FullCommentViewModel
 import okhttp3.OkHttpClient
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 /**
@@ -33,4 +36,6 @@ val appModule = module {
             mapper = CommentResponseToModelMapper()
         )
     }
+
+    single<MainScreenViewModel> { MainScreenViewModel(repository = get()) }
 }

@@ -4,7 +4,7 @@ import com.example.thenoughtyfoxtestapp.data.mappers.CommentResponseToModelMappe
 import com.example.thenoughtyfoxtestapp.data.network.connection.ConnectionChecker
 import com.example.thenoughtyfoxtestapp.data.network.service.CommentService
 import com.example.thenoughtyfoxtestapp.domain.entity.CommentModel
-import com.example.thenoughtyfoxtestapp.domain.exceptions.FetchDataFailed
+import com.example.thenoughtyfoxtestapp.domain.exceptions.FetchFailureReason
 import com.example.thenoughtyfoxtestapp.domain.repository.CommentRepository
 import java.io.InterruptedIOException
 
@@ -16,15 +16,21 @@ class CommentRepositoryImpl(
     private val connectionChecker: ConnectionChecker,
     private val mapper: CommentResponseToModelMapper
 ) : CommentRepository {
-    override suspend fun fetchComments(): List<CommentModel> {
-        if (!connectionChecker.checkInternetConnection()) throw FetchDataFailed.NoInternetConnection
+    override suspend fun fetchComments(): List<CommentModel> =
+        tryToExecute { service.fetchComments().map { mapper.map(it) } }
 
+    override suspend fun fetchCommentById(id: Int): CommentModel =
+        tryToExecute { service.fetchCommentById(id).let { mapper.map(it) } }
+
+
+    private suspend fun <T> tryToExecute(block: suspend () -> T): T {
+        if (!connectionChecker.checkInternetConnection()) throw FetchFailureReason.NoInternetConnection
         return try {
-            service.fetchComments().map { mapper.map(it) }
+            block()
         } catch (e: InterruptedIOException) {
-            throw FetchDataFailed.RequestTooLong
+            throw FetchFailureReason.RequestTooLong
         } catch (e: Exception) {
-            throw FetchDataFailed.UnexpectedException(e)
+            throw FetchFailureReason.UnexpectedException(e)
         }
     }
 }

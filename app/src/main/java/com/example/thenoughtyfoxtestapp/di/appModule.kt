@@ -38,4 +38,10 @@ val appModule = module {
     }
 
     single<MainScreenViewModel> { MainScreenViewModel(repository = get()) }
+    viewModel<FullCommentViewModel> { parameters ->
+        FullCommentViewModel(
+            commentId = parameters.get(),
+            repository = get()
+        )
+    }
 }

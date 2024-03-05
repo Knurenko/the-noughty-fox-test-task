@@ -1,4 +1,4 @@
-package com.example.thenoughtyfoxtestapp.ui.theme
+package com.example.thenoughtyfoxtestapp.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

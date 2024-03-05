@@ -70,4 +70,7 @@ dependencies {
     // di - koin
     implementation("io.insert-koin:koin-android:3.4.0")
     implementation("io.insert-koin:koin-androidx-compose:3.4.5")
+
+    // navigation
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 }

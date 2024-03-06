@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.thenoughtyfoxtestapp.presentation.screens.comments.MainScreenController
+import com.example.thenoughtyfoxtestapp.presentation.screens.comments.MainScreenRoute
 import com.example.thenoughtyfoxtestapp.presentation.screens.one_comment.FullCommentRoute
 
 /**
@@ -18,7 +18,7 @@ fun NavigationGraph() {
 
     NavHost(navController = navController, startDestination = Routes.HOME) {
         composable(Routes.HOME) {
-            MainScreenController(onCommentSelected = { commentId -> navController.navigate("${Routes.COMMENT}/$commentId") })
+            MainScreenRoute(onCommentSelected = { commentId -> navController.navigate("${Routes.COMMENT}/$commentId") })
         }
         composable(
             "${Routes.COMMENT}/{commentId}",

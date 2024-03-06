@@ -9,7 +9,7 @@ import org.koin.compose.koinInject
  */
 
 @Composable
-fun MainScreenController(onCommentSelected: (Int) -> Unit) {
+fun MainScreenRoute(onCommentSelected: (Int) -> Unit) {
     val viewModel: MainScreenViewModel = koinInject()
 
     MainScreenView(
